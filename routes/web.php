@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,16 +19,10 @@ Route::get('/', function () {
 });
 
 Route::get('posts/{post}', function ($slug) {
-    $path = __DIR__ . "/../resources/posts/{$slug}.html";
-
-    if(! file_exists($path)) {
-        return redirect('/');
-    }
-
-    $post = file_get_contents($path);
-
+    //find a post by its slug and pass it through a view called "posts"
+    $post = Post::find($slug);
 
     return view('post', [
         'post' => $post
     ]);
-});
+})->where('post', '[A-z_\-]+'); //using a regular expression, says "look for anything with Capitol or lowercase letters, underscores, or dashes. + means find one or more"
