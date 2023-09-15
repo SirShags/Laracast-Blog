@@ -19,17 +19,11 @@ Route::get('/', function () {
     return view('posts', [
         'posts' => Post::all()
     ]);
-
-    // return view('posts', [
-    //     'posts' => Post::all()
-    // ]);
 });
 
 Route::get('posts/{post}', function ($slug) {
     //find a post by its slug and pass it through a view called "posts"
-    $post = Post::find($slug);
-
     return view('post', [
-        'post' => $post
+        'post' => Post::findOrFail($slug)
     ]);
-})->where('post', '[A-z_\-]+'); //using a regular expression, says "look for anything with Capitol or lowercase letters, underscores, or dashes. + means find one or more"
+});

@@ -1,12 +1,28 @@
-<!doctype html>
+{{-- This layout is using template inheretance --}}
+@extends('components.layout')
 
-<title> My Blog </title>
-<link rel="stylesheet" type="text/css" href="/app.css">
-
-<body>
+@section('content')
     <article>
-        <?= $post; ?>
+        <h1>{{ $post->title }}</h1>
+
+        <div>
+            {!! $post->body !!}
+        </div>
     </article>
 
     <a href="/">Go Back</a>
-</body> 
+@endsection
+
+{{--This layout is using blade components
+
+<x-layout>
+    <article>
+        <h1>{{ $post->title }}</h1>
+
+        <div>
+            {!! $post->body !!}
+        </div>
+    </article>
+
+    <a href="/">Go Back</a>
+</x-layout> --}}
