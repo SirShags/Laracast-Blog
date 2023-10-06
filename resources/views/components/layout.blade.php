@@ -1,15 +1,15 @@
 {{-- This layout is using template inheretance --}}
-<!doctype html>
+{{-- <!doctype html>
 
 <title> My Blog </title>
 <link rel="stylesheet" type="text/css" href="/app.css">
 
 <body>
     @yield('content')
-</body>
+</body> --}}
 
 
-{{--This layout is using blade components
+{{-- This layout is using blade components --}}
 
 <!doctype html>
 
@@ -18,4 +18,4 @@
 
 <body>
     {{ $slot }}
-</body> --}}
+</body>

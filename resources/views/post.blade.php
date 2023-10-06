@@ -1,5 +1,5 @@
 {{-- This layout is using template inheretance --}}
-@extends('components.layout')
+{{-- @extends('components.layout')
 
 @section('content')
     <article>
@@ -11,13 +11,13 @@
     </article>
 
     <a href="/">Go Back</a>
-@endsection
+@endsection --}}
 
-{{--This layout is using blade components
+{{-- This layout is using blade components --}}
 
 <x-layout>
     <article>
-        <h1>{{ $post->title }}</h1>
+        <h1>{!! $post->title !!}</h1>
 
         <div>
             {!! $post->body !!}
@@ -25,4 +25,4 @@
     </article>
 
     <a href="/">Go Back</a>
-</x-layout> --}}
+</x-layout>
