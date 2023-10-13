@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -17,20 +19,12 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', function () {
-    return view('posts', [
-        'posts' => Post::latest()->get(),
-        'categories' => Category::all(),
-    ]);
-});
+Route::get('/', [PostController::class, 'index'])->name('home');
 
 //this method is if you're only grabbing the slug once
-Route::get('posts/{post:slug}', function (Post $post) { // Post::where('slug', $post)->firstOrFail();
-    //find a post by its slug and pass it through a view called "posts"
-    return view('post', [
-        'post' => $post
-    ]);
-});
+Route::get('posts/{post:slug}', [PostController::class, 'show']);
+
+Route::get('register', [RegisterController::class, 'create']);
 
 // This method uses getRouteKeyName in Post model, use if you are calling slug multiple times
 // Route::get('posts/{post}', function (Post $post) {
@@ -40,17 +34,12 @@ Route::get('posts/{post:slug}', function (Post $post) { // Post::where('slug', $
 //     ]);
 // });
 
-Route::get('categories/{category:slug}', function (Category $category) {
-    return view('posts', [
-        'posts' => $category->posts,
-        'currentCategory' => $category,
-        'categories' => Category::all(),
-    ]);
-});
+// Route::get('categories/{category:slug}', function (Category $category) {
+//     return view('posts', [
+//         'posts' => $category->posts,
+//         'currentCategory' => $category,
+//         'categories' => Category::all(),
+//     ]);
+// })->name('category');
 
-Route::get('authors/{author:username}', function (User $author) {
-    return view('posts', [
-        'posts' => $author->posts,
-        'categories' => Category::all(),
-    ]);
-});
+

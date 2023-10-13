@@ -30,7 +30,7 @@
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
                         <div class="ml-3 text-left">
                             <h5 class="font-bold">
-                                <a href="/authors/{{ $post->author->username }}">
+                                <a href="?author={{ $post->author->username }}">
                                     {{ $post->author->name }}
                                 </a>
                             </h5>
@@ -66,7 +66,7 @@
 
                     <div class="space-y-4 lg:text-lg leading-loose">
                         <p>
-                            {{ $post->body }}
+                            {!! $post->body !!}
                         </p>
                     </div>
                 </div>

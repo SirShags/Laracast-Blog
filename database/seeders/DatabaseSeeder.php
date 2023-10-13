@@ -16,17 +16,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         //creates a single user named john doe with a slug of john-doe
-        $user = User::factory()->create([
-            'username' => 'John-Doe',
-            'name' => 'John Doe',
-        ]);
+        // $user = User::factory()->create([
+        //     'username' => 'John-Doe',
+        //     'name' => 'John Doe',
+        // ]);
         //all posts are associated with John doe
-        Post::factory(5)->create([
-            'user_id' => $user->id
-        ]);
+        // Post::factory(30)->create([
+        //     'user_id' => $user->id
+        // ]);
 
-        //creates 5 new users, posts, and categories
-        // Post::factory(5)->create();
+        //creates 30 new users, posts, and categories
+        Post::factory(30)->create();
 
         //typed and drawn out method
         // $personal = Category::create([
