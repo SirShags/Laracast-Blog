@@ -25,6 +25,7 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
 Route::get('register', [RegisterController::class, 'create']);
+Route::post('register', [RegisterController::class, 'store']);
 
 // This method uses getRouteKeyName in Post model, use if you are calling slug multiple times
 // Route::get('posts/{post}', function (Post $post) {

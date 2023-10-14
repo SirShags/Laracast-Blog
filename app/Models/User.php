@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
     ];
 
@@ -32,6 +33,17 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    //accessor, whenever username is called it will capitalize the username
+    public function getUsernameAttribute($username) {
+        return ucwords($username);
+    }
+
+    //laravel checks for this function convention 'set($AttributeName)Attribute
+    //known as an eloquent mutator
+    public function setPasswordAttribute($password) {
+        $this->attributes['password'] = bcrypt($password);
+    }
 
     /**
      * The attributes that should be cast.
