@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\RegisterController;
-use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,9 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 //this method is if you're only grabbing the slug once
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
-Route::get('register', [RegisterController::class, 'create']);
-Route::post('register', [RegisterController::class, 'store']);
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+Route::post('logout', [SessionsController::class, 'destroy']);
 
 // This method uses getRouteKeyName in Post model, use if you are calling slug multiple times
 // Route::get('posts/{post}', function (Post $post) {
