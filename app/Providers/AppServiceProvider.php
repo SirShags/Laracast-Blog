@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Pagination\AbstractPaginator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\AbstractPaginator;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //default is tailwind
+        Model::unguard();
     }
 }

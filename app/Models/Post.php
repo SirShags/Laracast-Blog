@@ -13,8 +13,7 @@ class Post extends Model
      * Opposite of $fillable, assigns variables that are not mass assignable
      */
     // protected $guarded = [];
-
-    protected $with = ['category', 'author'];
+    // protected $with = ['category', 'author'];
 
     // /**
     //  * The attributes that are mass assignable.
@@ -28,6 +27,10 @@ class Post extends Model
     //     'body',
     //     'category_id',
     // ];
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 
     public function category() {
         //hasOne, hasMany, belongsTo, belongsToMany

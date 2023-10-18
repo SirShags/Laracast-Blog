@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Post;
-use App\Models\User;
+use App\Models\Comment;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -26,7 +25,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         //creates 30 new users, posts, and categories
-        Post::factory(30)->create();
+        Comment::factory(30)->create();
 
         //typed and drawn out method
         // $personal = Category::create([
