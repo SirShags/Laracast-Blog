@@ -34,11 +34,17 @@ Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest
 
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'); //only signed in users can logout
 
-Route::post('admin/posts', [AdminPostController::class, 'store'])->middleware('admin');
-Route::get('admin/posts/create', [AdminPostController::class, 'create'])->middleware('admin'); //using the MustBeAdmin middleware created
-Route::get('admin/posts', [AdminPostController::class, 'index'])->middleware('admin'); //using the MustBeAdmin middleware created
-Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit'])->middleware('admin');
-Route::patch('admin/posts/{post:id}', [AdminPostController::class,'update'])->middleware('admin');
+//every route will have the 'can:admin' middleware applied
+Route::middleware('can:admin')->group(function () {
+    Route::resource('admin/posts', AdminPostController::class)->except('show');
+    // Route::post('admin/posts', [AdminPostController::class, 'store']);
+    // Route::get('admin/posts/create', [AdminPostController::class, 'create']);
+    // Route::get('admin/posts', [AdminPostController::class, 'index']);
+    // Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit']);
+    // Route::patch('admin/posts/{post:id}', [AdminPostController::class,'update']);
+    // Route::delete('admin/posts/{post:id}', [AdminPostController::class,'destroy']);
+});
+
 
 // This method uses getRouteKeyName in Post model, use if you are calling slug multiple times
 // Route::get('posts/{post}', function (Post $post) {
