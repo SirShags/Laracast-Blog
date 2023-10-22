@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\UpdateSlug;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {

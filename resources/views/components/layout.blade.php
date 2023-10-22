@@ -2,7 +2,7 @@
 
 <title>Laravel From Scratch Blog</title>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-{{-- @vite('resources/css/app.css') --}}
+<!-- {{-- @vite('resources/css/app.css') --}} -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -36,23 +36,35 @@
                 @auth
                     <x-dropdown>
                         <x-slot name='trigger'>
-                            <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}
+                            <button class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</button>
                         </x-slot>
 
-                        <form method="POST" action="/logout" class="ml-6 text-xs font-semibold text-blue-500 pr-6">
-                            @csrf
+                        <x-dropdown-item href='/admin/posts' :active='request()->is("admin/posts")'>
+                            Dashboard
+                        </x-dropdown-item>
+                        <x-dropdown-item href='/admin/posts/create' :active='request()->is("admin/posts/create")'>
+                            New Post
+                        </x-dropdown-item>
 
-                            <button type="submit">Log Out</button>
+                        <x-dropdown-item href='#'
+                                         x-data="{}"
+                                         @click.prevent="document.querySelector('#logout-form').submit()"
+                        >
+                            Log Out
+                        </x-dropdown-item>
+
+                        <form id='logout-form' method="POST" action="/logout" class='hidden'>
+                            @csrf
                         </form>
                     </x-dropdown>
 
-                    {{-- <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
+                    <!-- {{-- <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
 
                     <form method="POST" action="/logout" class="ml-6 text-xs font-semibold text-blue-500">
                         @csrf
 
                         <button type="submit">Log Out</button>
-                    </form> --}}
+                    </form> --}} -->
                 @else
                     <a href="/register" class="text-xs font-bold uppercase">Register</a>
                     <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>

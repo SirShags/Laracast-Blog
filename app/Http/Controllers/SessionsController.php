@@ -26,18 +26,17 @@ class SessionsController extends Controller
         //     ->withErrors(['email' => 'Your provided credentials could not be verified']); // custom error message
 
         //way 2:
-        throw ValidationException::withMessages([
+        if(!auth()->attempt($attributes)) {
+            throw ValidationException::withMessages([
             'email' => 'Your provided credentials could not be verified'
         ]);
-
-        // attempt to authenticate and log in the user based on provided credentials
-        if(auth()->attempt($attributes)) {
-            //protect against session fixation
-            session()->regenerate();
-
-            //redirect with flash message
-            return redirect('/')->with('success', 'Welcome Back!');
         }
+
+        //protect against session fixation
+        session()->regenerate();
+
+        //redirect with flash message
+        return redirect('/')->with('success', 'Welcome Back!');
     }
 
     public function destroy() {
