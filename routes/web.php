@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Models\Post;
@@ -10,6 +11,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use Illuminate\Validation\ValidationException;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+=======
+use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PostCommentsController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+>>>>>>> a2b7a0d8d168f86b202c4665cc79422f425be354
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 
@@ -39,8 +47,22 @@ Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest
 
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'); //only signed in users can logout
 
+<<<<<<< HEAD
 Route::get('admin/posts/create', [PostController::class,'create'])->middleware('admin'); //using the MustBeAdmin middleware created
 Route::post('admin/posts', [PostController::class,'store'])->middleware('admin');
+=======
+//every route will have the 'can:admin' middleware applied
+Route::middleware('can:admin')->group(function () {
+    Route::resource('admin/posts', AdminPostController::class)->except('show');
+    // Route::post('admin/posts', [AdminPostController::class, 'store']);
+    // Route::get('admin/posts/create', [AdminPostController::class, 'create']);
+    // Route::get('admin/posts', [AdminPostController::class, 'index']);
+    // Route::get('admin/posts/{post:id}/edit', [AdminPostController::class, 'edit']);
+    // Route::patch('admin/posts/{post:id}', [AdminPostController::class,'update']);
+    // Route::delete('admin/posts/{post:id}', [AdminPostController::class,'destroy']);
+});
+
+>>>>>>> a2b7a0d8d168f86b202c4665cc79422f425be354
 
 // This method uses getRouteKeyName in Post model, use if you are calling slug multiple times
 // Route::get('posts/{post}', function (Post $post) {

@@ -36,12 +36,19 @@
                 @auth
                     <x-dropdown>
                         <x-slot name='trigger'>
-                            <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}
+                            <button class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</button>
                         </x-slot>
 
-                        <form method="POST" action="/logout" class="ml-6 text-xs font-semibold text-blue-500 pr-6">
-                            @csrf
+                        @admin
+                            <x-dropdown-item href='/admin/posts' :active='request()->is("admin/posts")'>
+                                Dashboard
+                            </x-dropdown-item>
+                            <x-dropdown-item href='/admin/posts/create' :active='request()->is("admin/posts/create")'>
+                                New Post
+                            </x-dropdown-item>
+                        @endadmin
 
+<<<<<<< HEAD
                             @if (auth()->user()?->username == 'JeffWay')
                                 <a href="/admin/posts/create" class='block mb-1'>
                                     Create Post
@@ -49,6 +56,17 @@
                             @endif
 
                             <button type="submit" class='block'>Log Out</button>
+=======
+                        <x-dropdown-item href='#'
+                                         x-data="{}"
+                                         @click.prevent="document.querySelector('#logout-form').submit()"
+                        >
+                            Log Out
+                        </x-dropdown-item>
+
+                        <form id='logout-form' method="POST" action="/logout" class='hidden'>
+                            @csrf
+>>>>>>> a2b7a0d8d168f86b202c4665cc79422f425be354
                         </form>
                     </x-dropdown>
 

@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Contracts\Pagination\Paginator;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
+>>>>>>> a2b7a0d8d168f86b202c4665cc79422f425be354
 use MailchimpMarketing\ApiClient;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,7 +38,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //default is tailwind
         Model::unguard();
+
+        Gate::define('admin' , function ($user) {
+            return auth()->user()?->username != 'JeffWay';
+        });
+
+        Blade::if('admin', function () {
+            return request()->user()?->can('admin');
+        });
     }
 }
