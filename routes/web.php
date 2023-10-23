@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Services\MailchimpNewsletter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use Illuminate\Validation\ValidationException;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
@@ -20,40 +23,13 @@ use App\Http\Controllers\SessionsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::post('newsletter', function() {
-    request()->validate([
-        'email' => ['required', 'email']
-    ]);
-
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us21'
-    ]);
-
-    // $response = $mailchimp->ping->get();
-
-    try {
-        $response = $mailchimp->lists->addListMember('586df8c645', [
-            'email_address' => request('email'),
-            'status' => 'subscribed'
-        ]);
-    } catch (\Exception $e) {
-        throw \Illuminate\Validation\ValidationException::withMessages([
-            'email' => 'This email could not be added to our newsletter list.'
-        ]);
-    }
-
-    return redirect('/')->with('success', 'You are now signed up for our newsletter!');
-});
-
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 //this method is if you're only grabbing the slug once
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
+
+Route::post('newsletter', NewsletterController::class);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest'); //non-signed in users can reach
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest'); //non-signed in users can reach
@@ -62,6 +38,9 @@ Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest'); //non-signed in users can reach
 
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'); //only signed in users can logout
+
+Route::get('admin/posts/create', [PostController::class,'create'])->middleware('admin'); //using the MustBeAdmin middleware created
+Route::post('admin/posts', [PostController::class,'store'])->middleware('admin');
 
 // This method uses getRouteKeyName in Post model, use if you are calling slug multiple times
 // Route::get('posts/{post}', function (Post $post) {

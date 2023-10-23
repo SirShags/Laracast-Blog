@@ -2,7 +2,7 @@
 
 <title>Laravel From Scratch Blog</title>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-{{-- @vite('resources/css/app.css') --}}
+<!-- {{-- @vite('resources/css/app.css') --}} -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -42,17 +42,23 @@
                         <form method="POST" action="/logout" class="ml-6 text-xs font-semibold text-blue-500 pr-6">
                             @csrf
 
-                            <button type="submit">Log Out</button>
+                            @if (auth()->user()?->username == 'JeffWay')
+                                <a href="/admin/posts/create" class='block mb-1'>
+                                    Create Post
+                                </a>
+                            @endif
+
+                            <button type="submit" class='block'>Log Out</button>
                         </form>
                     </x-dropdown>
 
-                    {{-- <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
+                    <!-- {{-- <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
 
                     <form method="POST" action="/logout" class="ml-6 text-xs font-semibold text-blue-500">
                         @csrf
 
                         <button type="submit">Log Out</button>
-                    </form> --}}
+                    </form> --}} -->
                 @else
                     <a href="/register" class="text-xs font-bold uppercase">Register</a>
                     <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>

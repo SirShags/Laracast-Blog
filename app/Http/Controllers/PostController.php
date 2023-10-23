@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\UpdateSlug;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
@@ -20,5 +24,27 @@ class PostController extends Controller
         return view('posts.show', [
             'post' => $post
         ]);
+    }
+
+    public function create() {
+        return view('posts.create');
+    }
+
+    public function store(Request $request) {
+        $attributes = $request->validate([
+            'title'=> ['required'],
+            'thumbnail' => ['required', 'image'],
+             //'slug' => ['required', Rule::unique('posts', 'slug')],
+            'excerpt' => ['required'],
+            'body' => ['required'],
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+        ]);
+
+        $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
+
+        $post = Post::create($attributes);
+
+        return redirect('/');
     }
 }

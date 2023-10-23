@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     /**
      * Opposite of $fillable, assigns variables that are not mass assignable
@@ -39,6 +41,18 @@ class Post extends Model
 
     public function author() { //foreign key is called author_id
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Summary of sluggable
+     * @return array
+     */
+    public function sluggable(): array {
+        return [
+            'slug' => [
+                'source' => 'title',
+            ]
+        ];
     }
 
     public function getRouteKeyName() {
