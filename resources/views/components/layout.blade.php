@@ -48,15 +48,6 @@
                             </x-dropdown-item>
                         @endadmin
 
-<<<<<<< HEAD
-                            @if (auth()->user()?->username == 'JeffWay')
-                                <a href="/admin/posts/create" class='block mb-1'>
-                                    Create Post
-                                </a>
-                            @endif
-
-                            <button type="submit" class='block'>Log Out</button>
-=======
                         <x-dropdown-item href='#'
                                          x-data="{}"
                                          @click.prevent="document.querySelector('#logout-form').submit()"
@@ -66,7 +57,6 @@
 
                         <form id='logout-form' method="POST" action="/logout" class='hidden'>
                             @csrf
->>>>>>> a2b7a0d8d168f86b202c4665cc79422f425be354
                         </form>
                     </x-dropdown>
 

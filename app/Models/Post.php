@@ -34,8 +34,11 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function draftPost() {
+        return $this->hasOne(DraftPost::class);
+    }
+
     public function category() {
-        //hasOne, hasMany, belongsTo, belongsToMany
         return $this->belongsTo(Category::class);
     }
 

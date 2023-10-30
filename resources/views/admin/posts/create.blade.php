@@ -1,16 +1,16 @@
 <x-layout>
     <x-setting heading='Publish New Post'>
-        <form action="/admin/posts" method="post" enctype="multipart/form-data">
+        <form action="/admin/posts" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <x-form.input name='title' />
-            <x-form.input name='thumbnail' type='file'/>
+            <x-form.input name='title'  required/>
+            <x-form.input name='thumbnail' type='file' required/>
 
-            <x-form.textarea name='excerpt'/>
-            <x-form.textarea name='body'/>
+            <x-form.textarea name='excerpt' required/>
+            <x-form.textarea name='body' required/>
 
             <x-form.field>
-                <x-form.label name='category_id' />
+                <x-form.label name='category' />
 
                 <select name="category_id" id='category_id'>
                     @foreach (\App\Models\Category::all() as $category)
@@ -25,9 +25,15 @@
                 <x-form.error name='category' />
             </x-form.field>
 
-            <x-form.button>
-                Publish
-            </x-form.button>
+            <div class='flex space-x-3'>
+                <x-form.button value='draft'>
+                    Save as Draft
+                </x-form.button>
+
+                <x-form.button value='create'>
+                    Publish
+                </x-form.button>
+            </div>
         </form>
     </x-setting>
 </x-layout>

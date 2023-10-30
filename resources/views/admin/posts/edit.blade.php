@@ -11,7 +11,7 @@
                     <x-form.input name='thumbnail' type='file' :value="old('thumbnail', $post->thumbnail)"/>
                 </div>
 
-                <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="" class="rounded-xl ml-6" width='100'>
+                <img src="{{ asset('storage/thumbnails/' . $post->thumbnail) }}" alt="" class="rounded-xl ml-6" width='100'>
             </div>
 
 
@@ -39,9 +39,15 @@
                 <x-form.error name='category' />
             </x-form.field>
 
-            <x-form.button>
-                Update
-            </x-form.button>
+            <div class='flex space-x-3'>
+                <x-form.button value='draft'>
+                    Save as Draft
+                </x-form.button>
+
+                <x-form.button value='create'>
+                    Publish
+                </x-form.button>
+            </div>
         </form>
     </x-setting>
 </x-layout>
