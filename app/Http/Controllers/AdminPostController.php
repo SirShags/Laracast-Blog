@@ -47,10 +47,6 @@ class AdminPostController extends Controller
 
     public function update(Request $request, Post $post) {
         //set user_id as if only admin can edit posts
-        $request['user_id'] = $post->user_id;
-
-        //if multiple users can update posts
-        //$request['user_id'] = auth()->id();
 
         $attributes = $this->validatePost($request, $post);
 

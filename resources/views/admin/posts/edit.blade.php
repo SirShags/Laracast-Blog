@@ -23,21 +23,39 @@
                 {{ old('body', $post->body) }}
             </x-form.textarea>
 
-            <x-form.field>
-                <x-form.label name='category_id' />
+            <div class='flex space-x-12'>
+                <x-form.field>
+                    <x-form.label name='category_id' />
 
-                <select name="category_id" id='category_id'>
-                    @foreach (\App\Models\Category::all() as $category)
-                        <option value="{{ $category->id }}"
-                                    {{ old('category_id', $post->category_id) == $category->id ? 'selected' : "" }}
-                        >
-                            {{ ucwords($category->name) }}
-                        </option>
-                    @endforeach
-                </select>
+                    <select name="category_id" id='category_id'>
+                        @foreach (\App\Models\Category::all() as $category)
+                            <option value="{{ $category->id }}"
+                                        {{ old('category_id', $post->category_id) == $category->id ? 'selected' : "" }}
+                            >
+                                {{ ucwords($category->name) }}
+                            </option>
+                        @endforeach
+                    </select>
 
-                <x-form.error name='category' />
-            </x-form.field>
+                    <x-form.error name='category' />
+                </x-form.field>
+
+                <x-form.field>
+                    <x-form.label name='user_id' />
+
+                    <select name="user_id" id='user_id'>
+                        @foreach (\App\Models\User::all() as $user)
+                            <option value="{{ $user->id }}"
+                                        {{ old('user_id', $post->author->id) == $user->id ? 'selected' : "" }}
+                            >
+                                {{ ucwords($user->name) }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <x-form.error name='user' />
+                </x-form.field>
+            </div>
 
             <div class='flex space-x-3'>
                 <x-form.button value='draft'>
