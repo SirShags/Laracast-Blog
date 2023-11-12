@@ -1,5 +1,5 @@
 <tr>
-    <td class="px-6 py-4 whitespace-nowrap">
+    <td class="px-6 py-4">
         <div class="flex items-center">
             <div class="text-sm font-medium text-gray-900 hover:text-gray-500 hover:underline">
                 <a href="/posts/{{ $post->slug }}">
@@ -13,6 +13,12 @@
             <span class='px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800'>
                 Published
             </span>
+    </td>
+
+    <td>
+        <div>
+            {{ $post->reads }}
+        </div>
     </td>
 
     <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">

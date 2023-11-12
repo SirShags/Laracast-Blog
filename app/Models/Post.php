@@ -52,6 +52,13 @@ class Post extends Model implements Feedable
         return route('home', $this);
     }
 
+    public function incrementReadCount() {
+        // ddd($this->reads);
+        $this->reads++;
+        // ddd($this->reads);
+        return $this->save();
+    }
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }
