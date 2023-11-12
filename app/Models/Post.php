@@ -5,8 +5,11 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Spatie\Feed\Feedable;
+use Spatie\Feed\FeedItem;
 
-class Post extends Model
+class Post extends Model implements Feedable
 {
     use HasFactory;
     use Sluggable;
@@ -29,6 +32,25 @@ class Post extends Model
     //     'body',
     //     'category_id',
     // ];
+
+    public function toFeedItem(): FeedItem
+    {
+        return FeedItem::create()
+            ->id($this->id)
+            ->title($this->title)
+            ->summary($this->excerpt)
+            ->link($this->link)
+            ->updated(Carbon::parse($this->updated_at))
+            ->authorName($this->author->name);
+    }
+
+    public function getFeedItems() {
+        return static::all();
+    }
+
+    public function getLinkAttribute() {
+        return route('home', $this);
+    }
 
     public function comments() {
         return $this->hasMany(Comment::class);

@@ -16,9 +16,15 @@
     </td>
 
     <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <a href="/admin/posts/{{ $draft->id }}/edit" class="text-blue-500 hover:text-blue-600">
-            Edit
-        </a>
+        @if($draft->post_id)
+            <a href="/admin/posts/{{ $draft->post_id }}/edit" class="text-blue-500 hover:text-blue-600">
+                Edit
+            </a>
+        @else
+            <a href="/admin/posts/{{ $draft->id }}/edit" class="text-blue-500 hover:text-blue-600">
+                Edit
+            </a>
+        @endif
     </td>
 
     <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">

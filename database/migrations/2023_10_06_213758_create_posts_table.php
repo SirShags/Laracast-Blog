@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('excerpt');
             $table->text('body');
             $table->timestamps();
+            $table->timestamp('updated_at')->nullable();
             $table->timestamp('published_at')->nullable();
         });
     }

@@ -45,6 +45,7 @@ Route::middleware('can:admin')->group(function () {
     Route::delete('admin/posts/{post:id}', [AdminPostController::class,'destroy']);
 });
 
+Route::feeds();
 
 // This method uses getRouteKeyName in Post model, use if you are calling slug multiple times
 // Route::get('posts/{post}', function (Post $post) {
